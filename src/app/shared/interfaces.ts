@@ -6,9 +6,14 @@ export interface IDynamicFields {
 
 export interface IMultiStep {
   /**
-   * dynamic keys, so that they will be unique in all cases
+   * a ket to identify the step
    */
-  [view: string]: JSX.Element;
+  key: string;
+
+  /**
+   * a label to be displayed on the UI
+   */
+  label: string;
 }
 
 export interface IMultiStepParam {

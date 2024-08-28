@@ -1,35 +1,41 @@
 "use client";
 
-import { IMultiStep } from "@/app/shared/interfaces";
 import { PersonalDetailsComponent } from "./views/personal-details/PersonalDetails.component";
 import { ContactComponent } from "./views/contact/Contact.component";
 import { ExperienceComponent } from "./views/experience/Experience.component";
 import { AgreeTNCComponent } from "./views/agree-tnc/AgreeTNC.component";
 import { useMultistepForm } from "@/app/shared/useMultistepForm";
 import { useCallback, useEffect } from "react";
+import { IMultiStep } from "@/app/shared/interfaces";
 
-type TSignupViews = "agreeTnc" | "contact" | "experience" | "personal";
+const signupSteps: Array<IMultiStep> = [
+  { key: "personal", label: "Personal" },
+  { key: "contact", label: "Contact Details" },
+  { key: "experience", label: "Experience" },
+  { key: "agreeTnc", label: "Agree Terms And Conditions" },
+];
 
 export default function Signup() {
   /**
    * hooks
    */
-  const { currentFormStep, setActiveStep, selectInitialFields } =
-    useMultistepForm();
-  const cachedSelectIntialFields = useCallback(selectInitialFields, [
+  const {
+    currentFormStep,
+    setActiveStep,
     selectInitialFields,
-  ]);
+    registerAvailableSteps,
+  } = useMultistepForm();
 
   /**
    * effects
    */
   useEffect(() => {
-    /**
-     * when the signup component intializes, decide on the initial active
-     * step
-     */
-    setActiveStep("personal");
-  }, [setActiveStep]);
+    // register all the available steps
+    registerAvailableSteps(signupSteps);
+
+    // set initial active step
+    setActiveStep(0);
+  }, [setActiveStep, registerAvailableSteps]);
 
   /**
    *
@@ -51,7 +57,7 @@ export default function Signup() {
    */
   const returnStepToRender = () => {
     console.log("currentFormStep", currentFormStep);
-    switch (currentFormStep as TSignupViews) {
+    switch (currentFormStep?.key) {
       case "agreeTnc":
         return <AgreeTNCComponent />;
       case "contact":
@@ -72,9 +78,43 @@ export default function Signup() {
 
   return (
     currentFormStep && (
-      <div className="bg-red-50">
-        <h1>{returnStepToRender()}</h1>
+      <div style={{ display: "flex", flexDirection: "column", rowGap: 36 }}>
+        <HeaderComponent activeStep={currentFormStep} />
+        <div>{returnStepToRender()}</div>
+        <FooterComponent
+          activeStep={currentFormStep}
+          availableSteps={signupSteps}
+        />
       </div>
     )
   );
 }
+
+const HeaderComponent = ({ activeStep }: { activeStep: IMultiStep }) => {
+  return <div>{activeStep.label}</div>;
+};
+
+const FooterComponent = ({
+  activeStep,
+  availableSteps,
+}: {
+  activeStep: IMultiStep;
+  availableSteps: Array<IMultiStep>;
+}) => {
+  return (
+    <div style={{ display: "flex", columnGap: 24, alignItems: "center" }}>
+      {availableSteps.map((step) => (
+        <div
+          style={{
+            width: step.key === activeStep.key ? 20 : 10,
+            height: step.key === activeStep.key ? 20 : 10,
+            outline: "1px solid",
+            borderRadius: 20,
+            backgroundColor: step.key === activeStep.key ? "black" : "",
+          }}
+          key={step.key}
+        ></div>
+      ))}
+    </div>
+  );
+};

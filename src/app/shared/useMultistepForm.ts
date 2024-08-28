@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { IDynamicFields } from "./interfaces";
+import { IDynamicFields, IMultiStep } from "./interfaces";
 
 export const useMultistepForm = () => {
   /**
    * states
    */
   const [formViews, setFormViews] = useState<IDynamicFields>({});
-  const [currentFormStep, setCurrentFormStep] = useState<string>();
-  const [availableSteps, setAvailableSteps] = useState<Array<string>>([]);
+  const [currentFormStep, setCurrentFormStep] = useState<IMultiStep>();
+  const [availableSteps, setAvailableSteps] = useState<Array<IMultiStep>>([]);
 
   /**
    * handlers
@@ -27,15 +27,15 @@ export const useMultistepForm = () => {
   /**
    * registers the available steps for the form
    */
-  const registerAvailableSteps = (steps: Array<string>) => {
+  const registerAvailableSteps = (steps: Array<IMultiStep>) => {
     setAvailableSteps(steps);
   };
 
   /**
    * sets the active step
    */
-  const setActiveStep = (step: string) => {
-    setCurrentFormStep(step);
+  const setActiveStep = (stepIndex: number) => {
+    setCurrentFormStep(availableSteps[stepIndex]);
   };
 
   /**
@@ -53,6 +53,12 @@ export const useMultistepForm = () => {
     setFormViews(updatedFormViews);
   };
 
+  /**
+   *
+   * @param view
+   *
+   * pick any intial
+   */
   const selectInitialFields = (view: string) => formViews[view];
 
   return {
