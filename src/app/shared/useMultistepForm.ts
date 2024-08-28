@@ -18,9 +18,9 @@ export const useMultistepForm = () => {
    * which have been updated over time
    */
   const getForm = () => {
-    const reducedForm: IDynamicFields = {};
+    let reducedForm: IDynamicFields = {};
     for (const view in formViews) {
-      reducedForm[view] = { ...reducedForm, ...reducedForm[view] };
+      reducedForm = { ...reducedForm, ...formViews[view] };
     }
     return reducedForm;
   };
