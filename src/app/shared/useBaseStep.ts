@@ -19,7 +19,6 @@ export const useBaseStep = () => {
      */
     if (formIsDirty) {
       let _stepIsValid = true;
-      console.log("form", form);
       for (const field in form) {
         if (field in requiredFields) {
           if (!form[field]) {
