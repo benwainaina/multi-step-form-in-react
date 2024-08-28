@@ -8,27 +8,31 @@ export const useBaseStep = () => {
   const [form, setForm] = useState<IDynamicFields>({});
   const [requiredFields, setRequiredFields] = useState<IDynamicFields>({});
   const [stepIsValid, setStepIsValid] = useState<boolean>();
-  const [stepName, setStepName] = useState<string>("");
+  const [formIsDirty, setFormIsDirty] = useState<boolean>(false);
 
   /**
    * effects
    */
   useEffect(() => {
     /**
-     * check for the validity of a form
+     * check for the validity of a form only if it has been changes
      */
-
-    for (const field in form) {
-      if (field in requiredFields) {
-        if (!form[field]) {
-          setStepIsValid(false);
-          break;
-        } else {
-          setStepIsValid(true);
+    if (formIsDirty) {
+      let _stepIsValid = true;
+      console.log("form", form);
+      for (const field in form) {
+        if (field in requiredFields) {
+          if (!form[field]) {
+            _stepIsValid = false;
+            break;
+          } else {
+            _stepIsValid = true;
+          }
         }
       }
+      setStepIsValid(_stepIsValid);
     }
-  }, [form, requiredFields]);
+  }, [form, requiredFields, formIsDirty]);
 
   /**
    * handlers
@@ -51,7 +55,7 @@ export const useBaseStep = () => {
       ...form,
       [field]: value,
     });
-    onViewFieldChange(stepName, field, value);
+    setFormIsDirty(true);
   };
 
   /**
@@ -75,21 +79,12 @@ export const useBaseStep = () => {
     value: string
   ) => ({ viewName, fieldName, value });
 
-  /**
-   * sets the view, but in a cached callback, because we do not want to
-   * trigger multiple re-renders
-   */
-  const setViewName = useCallback(
-    (viewName: string) => setStepName(viewName),
-    []
-  );
-
   return {
-    setViewName,
     patchForm,
     updateFormField,
     registerFormFields,
     stepIsValid,
     onViewFieldChange,
+    form,
   };
 };

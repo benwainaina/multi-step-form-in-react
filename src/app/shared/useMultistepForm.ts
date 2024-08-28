@@ -8,6 +8,7 @@ export const useMultistepForm = () => {
   const [formViews, setFormViews] = useState<IDynamicFields>({});
   const [currentFormStep, setCurrentFormStep] = useState<IMultiStep>();
   const [availableSteps, setAvailableSteps] = useState<Array<IMultiStep>>([]);
+  const [currentStepIsValid, setCurrentStepIsValid] = useState<boolean>();
 
   /**
    * handlers
@@ -34,7 +35,7 @@ export const useMultistepForm = () => {
   /**
    * sets the active step
    */
-  const setActiveStep = (stepIndex: number) => {
+  const setActiveStepIndex = (stepIndex: number) => {
     setCurrentFormStep(availableSteps[stepIndex]);
   };
 
@@ -61,12 +62,33 @@ export const useMultistepForm = () => {
    */
   const selectInitialFields = (view: string) => formViews[view];
 
+  /**
+   * when the value of a view changes, we can then update the larger
+   * form
+   */
+  const onViewFieldChange = (view: string, field: string, value: string) =>
+    setFormViews({
+      ...formViews,
+      [view]: {
+        ...formViews[view],
+        [field]: value,
+      },
+    });
+
+  const onCurrentStepIsValid = (validity: boolean) => {
+    setCurrentStepIsValid(validity);
+  };
+
   return {
     getForm,
     currentFormStep,
     registerView,
     registerAvailableSteps,
-    setActiveStep,
+    setActiveStepIndex,
     selectInitialFields,
+    availableSteps,
+    onCurrentStepIsValid,
+    currentStepIsValid,
+    onViewFieldChange,
   };
 };
