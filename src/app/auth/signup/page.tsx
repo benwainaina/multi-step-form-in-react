@@ -58,7 +58,17 @@ export default function Signup() {
       case "agreeTnc":
         return <AgreeTNCComponent />;
       case "contact":
-        return <ContactComponent />;
+        return (
+          <ContactComponent
+            selectInitialFields={selectInitialFields}
+            onViewFieldChange={(view: string, field: string, value: string) =>
+              onViewFieldChange(view, field, value)
+            }
+            onStepValidityChange={(isValid: boolean) =>
+              onCurrentStepIsValid(isValid)
+            }
+          />
+        );
       case "experience":
         return <ExperienceComponent />;
       default:

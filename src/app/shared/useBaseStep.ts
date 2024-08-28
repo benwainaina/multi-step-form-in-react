@@ -39,6 +39,7 @@ export const useBaseStep = () => {
   const patchForm = useCallback((existingValues: IDynamicFields) => {
     if (existingValues) {
       setForm(existingValues);
+      setStepIsValid(true);
     }
   }, []);
 
@@ -68,6 +69,7 @@ export const useBaseStep = () => {
     (fields: IDynamicFields, requiredFields: IDynamicFields) => {
       setForm(fields);
       setRequiredFields(requiredFields);
+      setStepIsValid(false);
     },
     []
   );

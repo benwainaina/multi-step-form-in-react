@@ -1,3 +1,4 @@
+import { InputFieldComponent } from "@/app/shared/components/input-field/InputField.component";
 import { IMultiStepParam } from "@/app/shared/interfaces";
 import { useBaseStep } from "@/app/shared/useBaseStep";
 import { useEffect } from "react";
@@ -49,22 +50,22 @@ export const PersonalDetailsComponent = ({
   return (
     <div>
       <form>
-        <input
+        <InputFieldComponent
           type="text"
           placeholder="Full name"
-          value={form.firstname}
-          onChange={({ target: { value: newTextValue } }) => {
-            updateFormField("firstname", newTextValue);
-            onViewFieldChange(viewName, "firstname", newTextValue);
+          initialValue={form.firstname}
+          onChange={(value: string) => {
+            updateFormField("firstname", value);
+            onViewFieldChange(viewName, "firstname", value);
           }}
         />
-        <input
+        <InputFieldComponent
           type="text"
           placeholder="Last name"
-          value={form.lastname}
-          onChange={({ target: { value: newTextValue } }) => {
-            updateFormField("lastname", newTextValue);
-            onViewFieldChange(viewName, "lastname", newTextValue);
+          initialValue={form.lastname}
+          onChange={(value: string) => {
+            updateFormField("lastname", value);
+            onViewFieldChange(viewName, "lastname", value);
           }}
         />
       </form>
