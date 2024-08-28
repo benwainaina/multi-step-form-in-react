@@ -68,10 +68,9 @@ export default function Signup() {
             onViewFieldChange={(view: string, field: string, value: string) =>
               onViewFieldChange(view, field, value)
             }
-            onStepValidityChange={(isValid: boolean) => {
-              console.log("1", isValid);
-              onCurrentStepIsValid(isValid);
-            }}
+            onStepValidityChange={(isValid: boolean) =>
+              onCurrentStepIsValid(isValid)
+            }
           />
         );
     }
