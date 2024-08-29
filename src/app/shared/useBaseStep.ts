@@ -14,15 +14,12 @@ export const useBaseStep = ({
   const [form, setForm] = useState<IDynamicFields>(formFields);
   const [requiredFields, setRequiredFields] =
     useState<IDynamicFields>(requiredFormFields);
-  const [stepIsValid, setStepIsValid] = useState<boolean>();
+  const [stepIsValid, setStepIsValid] = useState<boolean>(false);
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false);
 
-  /**
-   * effects
-   */
   useEffect(() => {
     /**
-     * check for the validity of a form only if it has been changes
+     * check for the validity of a form only if it has been changed
      */
     if (formIsDirty) {
       let _stepIsValid = true;
@@ -47,6 +44,7 @@ export const useBaseStep = ({
     if (existingValues) {
       setForm(existingValues);
       setStepIsValid(true);
+      setFormIsDirty(true);
     }
   }, []);
 

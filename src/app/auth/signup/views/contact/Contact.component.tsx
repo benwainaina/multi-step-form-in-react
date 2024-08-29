@@ -16,16 +16,15 @@ export const ContactComponent = ({
   /**
    * hooks
    */
-  const { patchForm, updateFormField, registerFormFields, stepIsValid, form } =
-    useBaseStep({
-      formFields: {
-        email: "",
-        linkedIn: "",
-        twitter: "",
-        youtube: "",
-      },
-      requiredFormFields: { email: "" },
-    });
+  const { patchForm, updateFormField, stepIsValid, form } = useBaseStep({
+    formFields: {
+      email: "",
+      linkedIn: "https://www.linkedin.com/in/benwainaina/",
+      twitter: "https://x.com/the__b_a_e",
+      youtube: "https://www.youtube.com/@the__b_a_e",
+    },
+    requiredFormFields: { email: "" },
+  });
 
   /**
    * effects

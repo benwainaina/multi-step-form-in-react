@@ -16,14 +16,13 @@ export const PersonalDetailsComponent = ({
   /**
    * hooks
    */
-  const { patchForm, updateFormField, registerFormFields, stepIsValid, form } =
-    useBaseStep({
-      formFields: {
-        firstname: "",
-        lastname: "",
-      },
-      requiredFormFields: { firstname: "", lastname: "" },
-    });
+  const { patchForm, updateFormField, stepIsValid, form } = useBaseStep({
+    formFields: {
+      firstname: "",
+      lastname: "",
+    },
+    requiredFormFields: { firstname: "", lastname: "" },
+  });
 
   /**
    * effects

@@ -30,7 +30,6 @@ export default function Signup() {
     setActiveStepIndex,
     selectInitialFields,
     registerAvailableSteps,
-    availableSteps,
     onCurrentStepIsValid,
     currentStepIsValid,
     onViewFieldChange,

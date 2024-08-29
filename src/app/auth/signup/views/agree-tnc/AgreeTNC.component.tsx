@@ -16,19 +16,13 @@ export const AgreeTNCComponent = ({
   /**
    * hooks
    */
-  const {
-    patchForm,
-    updateFormField,
-    registerFormFields,
-    stepIsValid,
-    form,
-    getFormFieldValue,
-  } = useBaseStep({
-    formFields: {
-      agreetnc: "",
-    },
-    requiredFormFields: { agreetnc: "" },
-  });
+  const { patchForm, updateFormField, stepIsValid, getFormFieldValue } =
+    useBaseStep({
+      formFields: {
+        agreetnc: "",
+      },
+      requiredFormFields: { agreetnc: "" },
+    });
 
   /**
    * effects

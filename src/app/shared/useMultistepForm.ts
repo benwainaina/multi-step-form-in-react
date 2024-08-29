@@ -42,18 +42,6 @@ export const useMultistepForm = () => {
   /**
    *
    * @param view
-   * @param viewFields
-   *
-   * registers fields belonging to an individual view
-   */
-  const registerView = (view: string, viewFields: IDynamicFields) => ({
-    ...formViews,
-    [view]: viewFields,
-  });
-
-  /**
-   *
-   * @param view
    *
    * pick initial field values for the provided view, for example when the
    * user returns to this view
@@ -81,14 +69,14 @@ export const useMultistepForm = () => {
   /**
    * set the validity of the current
    */
-  const onCurrentStepIsValid = (validity: boolean) => {
+  const onCurrentStepIsValid = useCallback((validity: boolean) => {
+    console.log("a", validity);
     setCurrentStepIsValid(validity);
-  };
+  }, []);
 
   return {
     getForm,
     currentFormStep,
-    registerView,
     registerAvailableSteps,
     setActiveStepIndex,
     selectInitialFields,

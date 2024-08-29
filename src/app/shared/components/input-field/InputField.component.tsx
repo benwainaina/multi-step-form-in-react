@@ -11,7 +11,7 @@ export const InputFieldComponent = ({
   initialValue: any;
   onChange: Function;
 }) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(initialValue);
 
   useEffect(() => {
     if (initialValue !== undefined) {

@@ -16,16 +16,15 @@ export const ExperienceComponent = ({
   /**
    * hooks
    */
-  const { patchForm, updateFormField, registerFormFields, stepIsValid, form } =
-    useBaseStep({
-      formFields: {
-        python: "",
-        django: "",
-        angular: "",
-        react: "",
-      },
-      requiredFormFields: { python: "", django: "", angular: "", react: "" },
-    });
+  const { patchForm, updateFormField, stepIsValid, form } = useBaseStep({
+    formFields: {
+      python: "",
+      django: "",
+      angular: "",
+      react: "",
+    },
+    requiredFormFields: { python: "", django: "", angular: "", react: "" },
+  });
 
   /**
    * effects
