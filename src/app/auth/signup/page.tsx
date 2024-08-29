@@ -84,9 +84,9 @@ export default function Signup() {
   return (
     currentFormStep && (
       <div className="grid w-full h-full">
-        <div className="flex flex-col w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 2xl:w-6/12 h-4/5 min-w-96 flex flex-col justify-self-center self-center">
+        <div className="flex flex-col w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 2xl:w-6/12 min-w-96 h-4/5 flex flex-col mt-12 justify-self-center">
           <HeaderComponent activeStep={currentFormStep} />
-          <div className="bg-white grow p-16 rounded-[24px] shadow-xl flex flex-col justify-center gap-y-24">
+          <div className="bg-white p-16 rounded-[24px] shadow-xl flex flex-col gap-y-20">
             {returnStepToRender()}
             <NavigationComponent
               availabelSteps={signupSteps}

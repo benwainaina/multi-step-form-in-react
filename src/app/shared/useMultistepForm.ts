@@ -70,7 +70,6 @@ export const useMultistepForm = () => {
    * set the validity of the current
    */
   const onCurrentStepIsValid = useCallback((validity: boolean) => {
-    console.log("a", validity);
     setCurrentStepIsValid(validity);
   }, []);
 

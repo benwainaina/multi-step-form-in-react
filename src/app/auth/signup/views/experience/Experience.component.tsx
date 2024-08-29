@@ -22,8 +22,15 @@ export const ExperienceComponent = ({
       django: "",
       angular: "",
       react: "",
+      reactnative: "",
     },
-    requiredFormFields: { python: "", django: "", angular: "", react: "" },
+    requiredFormFields: {
+      python: "",
+      django: "",
+      angular: "",
+      react: "",
+      reactnative: "",
+    },
   });
 
   /**

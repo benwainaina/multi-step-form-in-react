@@ -11,7 +11,7 @@ export const InputFieldComponent = ({
   initialValue: any;
   onChange: Function;
 }) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(initialValue);
 
   useEffect(() => {
     if (initialValue !== undefined) {
@@ -20,12 +20,18 @@ export const InputFieldComponent = ({
   }, [initialValue]);
 
   return (
-    <input
-      className="w-full py-5 pl-2 outline outline-1 outline-slate-200 rounded-2xl font-poppins"
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={({ target: { value: newTextValue } }) => onChange(newTextValue)}
-    />
+    <div className="flex gap-y-2 flex-col">
+      <input
+        className="w-full py-4 pl-2 outline outline-1 outline-slate-200 rounded-lg font-poppins"
+        type={type}
+        value={value}
+        onChange={({ target: { value: newTextValue } }) =>
+          onChange(newTextValue)
+        }
+      />
+      <span className="font-poppins text-xs text-slate-500 font-bold">
+        {placeholder}
+      </span>
+    </div>
   );
 };
