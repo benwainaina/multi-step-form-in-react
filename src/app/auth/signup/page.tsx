@@ -48,7 +48,7 @@ export default function Signup() {
      * registered
      */
     setActiveStepIndex(0);
-  }, [availableSteps, setActiveStepIndex]);
+  }, [availableSteps]);
 
   /**
    *

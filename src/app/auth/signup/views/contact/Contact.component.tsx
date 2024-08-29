@@ -17,7 +17,15 @@ export const ContactComponent = ({
    * hooks
    */
   const { patchForm, updateFormField, registerFormFields, stepIsValid, form } =
-    useBaseStep();
+    useBaseStep({
+      formFields: {
+        email: "",
+        linkedIn: "",
+        twitter: "",
+        youtube: "",
+      },
+      requiredFormFields: { email: "" },
+    });
 
   /**
    * effects
@@ -27,18 +35,8 @@ export const ContactComponent = ({
     /**
      * when the component intializes, initialize the form
      */
-
-    registerFormFields(
-      {
-        email: "",
-        linkedIn: "",
-        twitter: "",
-        youtube: "",
-      },
-      { email: "" }
-    );
     patchForm(selectInitialFields(viewName));
-  }, [registerFormFields, patchForm, selectInitialFields]);
+  }, [patchForm, selectInitialFields]);
 
   useEffect(() => {
     /**

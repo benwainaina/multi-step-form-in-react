@@ -17,7 +17,29 @@ export const PersonalDetailsComponent = ({
    * hooks
    */
   const { patchForm, updateFormField, registerFormFields, stepIsValid, form } =
-    useBaseStep();
+    useBaseStep({
+      formFields: {
+        firstname: "",
+        lastname: "",
+      },
+      requiredFormFields: { firstname: "", lastname: "" },
+    });
+
+  /**
+   * register the form fields
+   */
+  // registerFormFields(
+  //   {
+  //     firstname: "",
+  //     lastname: "",
+  //   },
+  //   { firstname: "", lastname: "" }
+  // );
+
+  /**
+   * patch form with any initial values
+   */
+  // patchForm(selectInitialFields(viewName));
 
   /**
    * effects
@@ -25,18 +47,10 @@ export const PersonalDetailsComponent = ({
 
   useEffect(() => {
     /**
-     * when the component intializes, initialize the form
+     * when the component intializes, optionally patch the form
      */
-
-    registerFormFields(
-      {
-        firstname: "",
-        lastname: "",
-      },
-      { firstname: "", lastname: "" }
-    );
     patchForm(selectInitialFields(viewName));
-  }, [registerFormFields, patchForm, selectInitialFields]);
+  }, [patchForm, selectInitialFields]);
 
   useEffect(() => {
     /**

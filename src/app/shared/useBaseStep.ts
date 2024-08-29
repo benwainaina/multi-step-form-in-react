@@ -1,12 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
 import { IDynamicFields } from "./interfaces";
 
-export const useBaseStep = () => {
+export const useBaseStep = ({
+  formFields,
+  requiredFormFields,
+}: {
+  formFields: IDynamicFields;
+  requiredFormFields: IDynamicFields;
+}) => {
   /**
    * states
    */
-  const [form, setForm] = useState<IDynamicFields>({});
-  const [requiredFields, setRequiredFields] = useState<IDynamicFields>({});
+  const [form, setForm] = useState<IDynamicFields>(formFields);
+  const [requiredFields, setRequiredFields] =
+    useState<IDynamicFields>(requiredFormFields);
   const [stepIsValid, setStepIsValid] = useState<boolean>();
   const [formIsDirty, setFormIsDirty] = useState<boolean>(false);
 
@@ -50,13 +57,16 @@ export const useBaseStep = () => {
    *
    * updates a single required field
    */
-  const updateFormField = (field: string, value: any) => {
-    setForm({
-      ...form,
-      [field]: value,
-    });
-    setFormIsDirty(true);
-  };
+  const updateFormField = useCallback(
+    (field: string, value: any) => {
+      setForm({
+        ...form,
+        [field]: value,
+      });
+      setFormIsDirty(true);
+    },
+    [form]
+  );
 
   /**
    *

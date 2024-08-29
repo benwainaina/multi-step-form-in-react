@@ -1,11 +1,11 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { IDynamicFields, IMultiStep } from "./interfaces";
 
 export const useMultistepForm = () => {
   /**
    * states
    */
-  const [formViews, setFormViews] = useState<IDynamicFields>({});
+  const formViews = useRef<IDynamicFields>({}).current;
   const [currentFormStep, setCurrentFormStep] = useState<IMultiStep>();
   const [availableSteps, setAvailableSteps] = useState<Array<IMultiStep>>([]);
   const [currentStepIsValid, setCurrentStepIsValid] = useState<boolean>();
@@ -28,16 +28,14 @@ export const useMultistepForm = () => {
   /**
    * registers the available steps for the form
    */
-  const registerAvailableSteps = (steps: Array<IMultiStep>) => {
+  const registerAvailableSteps = (steps: Array<IMultiStep>) =>
     setAvailableSteps(steps);
-  };
 
   /**
    * sets the active step
    */
-  const setActiveStepIndex = (stepIndex: number) => {
+  const setActiveStepIndex = (stepIndex: number) =>
     setCurrentFormStep(availableSteps[stepIndex]);
-  };
 
   /**
    *
@@ -46,13 +44,10 @@ export const useMultistepForm = () => {
    *
    * registers fields belonging to an individual view
    */
-  const registerView = (view: string, viewFields: IDynamicFields) => {
-    const updatedFormViews = {
-      ...formViews,
-      [view]: viewFields,
-    };
-    setFormViews(updatedFormViews);
-  };
+  const registerView = (view: string, viewFields: IDynamicFields) => ({
+    ...formViews,
+    [view]: viewFields,
+  });
 
   /**
    *
@@ -67,20 +62,26 @@ export const useMultistepForm = () => {
   );
 
   /**
+   *
+   * @param view
+   * @param field
+   * @param value
+   *
    * when the value of a view changes, we can then update the larger
-   * form
    */
-  const onViewFieldChange = (view: string, field: string, value: string) =>
-    setFormViews({
-      ...formViews,
-      [view]: {
-        ...formViews[view],
-        [field]: value,
-      },
-    });
+  const onViewFieldChange = (view: string, field: string, value: string) => {
+    formViews[view] = {
+      ...formViews[view],
+      [field]: value,
+    };
+  };
 
-  const onCurrentStepIsValid = (validity: boolean) =>
+  /**
+   * set the validity of the current
+   */
+  const onCurrentStepIsValid = (validity: boolean) => {
     setCurrentStepIsValid(validity);
+  };
 
   return {
     getForm,
