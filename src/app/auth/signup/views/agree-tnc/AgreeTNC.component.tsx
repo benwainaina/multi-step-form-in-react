@@ -11,7 +11,7 @@ export const AgreeTNCComponent = ({
   /**
    * constants
    */
-  const viewName = "experience";
+  const viewName = "tnc";
 
   /**
    * hooks
