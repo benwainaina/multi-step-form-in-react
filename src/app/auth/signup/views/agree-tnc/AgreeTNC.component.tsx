@@ -55,7 +55,6 @@ export const AgreeTNCComponent = ({
       className="flex md:items-center gap-x-6 cursor-pointer font-poppins font-bold"
       onClick={() => {
         const currentValue = getFormFieldValue("agreetnc") ? "" : "true";
-        console.log("currentValue", currentValue);
         updateFormField("agreetnc", currentValue);
         onViewFieldChange(viewName, "agreetnc", currentValue);
       }}

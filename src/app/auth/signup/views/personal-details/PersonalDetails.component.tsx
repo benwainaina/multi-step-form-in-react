@@ -26,22 +26,6 @@ export const PersonalDetailsComponent = ({
     });
 
   /**
-   * register the form fields
-   */
-  // registerFormFields(
-  //   {
-  //     firstname: "",
-  //     lastname: "",
-  //   },
-  //   { firstname: "", lastname: "" }
-  // );
-
-  /**
-   * patch form with any initial values
-   */
-  // patchForm(selectInitialFields(viewName));
-
-  /**
    * effects
    */
 
@@ -62,7 +46,7 @@ export const PersonalDetailsComponent = ({
   }, [stepIsValid, onStepValidityChange]);
 
   return (
-    <form className="flex flex-col gap-y-12">
+    <form className="flex flex-col gap-y-6">
       <InputFieldComponent
         type="text"
         placeholder="Full name"

@@ -48,7 +48,7 @@ export const ExperienceComponent = ({
   }, [stepIsValid, onStepValidityChange]);
 
   return (
-    <form className="flex flex-col gap-y-12">
+    <form className="flex flex-col gap-y-6">
       <InputFieldComponent
         type="number"
         placeholder="Angular"

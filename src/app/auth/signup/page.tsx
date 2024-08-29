@@ -10,10 +10,14 @@ import { IMultiStep, TNavigateDirection } from "@/app/shared/interfaces";
 import { clsx } from "clsx";
 
 const signupSteps: Array<IMultiStep> = [
-  { key: "personal", label: "Personal" },
-  { key: "contact", label: "Contact Details" },
-  { key: "experience", label: "Experience" },
-  { key: "agreeTnc", label: "Agree Terms And Conditions" },
+  { key: "personal", label: "Personal", component: PersonalDetailsComponent },
+  { key: "contact", label: "Contact Details", component: ContactComponent },
+  { key: "experience", label: "Experience", component: ExperienceComponent },
+  {
+    key: "agreeTnc",
+    label: "Agree Terms And Conditions",
+    component: AgreeTNCComponent,
+  },
 ];
 
 export default function Signup() {
@@ -55,55 +59,17 @@ export default function Signup() {
    * returns the current step to render
    */
   const returnStepToRender = () => {
-    switch (currentFormStep?.key) {
-      case "agreeTnc":
-        return (
-          <AgreeTNCComponent
-            selectInitialFields={selectInitialFields}
-            onViewFieldChange={(view: string, field: string, value: string) =>
-              onViewFieldChange(view, field, value)
-            }
-            onStepValidityChange={(isValid: boolean) =>
-              onCurrentStepIsValid(isValid)
-            }
-          />
-        );
-      case "contact":
-        return (
-          <ContactComponent
-            selectInitialFields={selectInitialFields}
-            onViewFieldChange={(view: string, field: string, value: string) =>
-              onViewFieldChange(view, field, value)
-            }
-            onStepValidityChange={(isValid: boolean) =>
-              onCurrentStepIsValid(isValid)
-            }
-          />
-        );
-      case "experience":
-        return (
-          <ExperienceComponent
-            selectInitialFields={selectInitialFields}
-            onViewFieldChange={(view: string, field: string, value: string) =>
-              onViewFieldChange(view, field, value)
-            }
-            onStepValidityChange={(isValid: boolean) =>
-              onCurrentStepIsValid(isValid)
-            }
-          />
-        );
-      default:
-        return (
-          <PersonalDetailsComponent
-            selectInitialFields={selectInitialFields}
-            onViewFieldChange={(view: string, field: string, value: string) =>
-              onViewFieldChange(view, field, value)
-            }
-            onStepValidityChange={(isValid: boolean) =>
-              onCurrentStepIsValid(isValid)
-            }
-          />
-        );
+    const StepComponent = signupSteps.find(
+      (step) => step.key === currentFormStep?.key
+    )?.component;
+    if (StepComponent) {
+      return (
+        <StepComponent
+          selectInitialFields={selectInitialFields}
+          onViewFieldChange={onViewFieldChange}
+          onStepValidityChange={onCurrentStepIsValid}
+        />
+      );
     }
   };
 
