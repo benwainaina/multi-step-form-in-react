@@ -48,7 +48,7 @@ export default function Signup() {
      * registered
      */
     setActiveStepIndex(0);
-  }, [availableSteps]);
+  }, [setActiveStepIndex]);
 
   /**
    *
@@ -57,7 +57,17 @@ export default function Signup() {
   const returnStepToRender = () => {
     switch (currentFormStep?.key) {
       case "agreeTnc":
-        return <AgreeTNCComponent />;
+        return (
+          <AgreeTNCComponent
+            selectInitialFields={selectInitialFields}
+            onViewFieldChange={(view: string, field: string, value: string) =>
+              onViewFieldChange(view, field, value)
+            }
+            onStepValidityChange={(isValid: boolean) =>
+              onCurrentStepIsValid(isValid)
+            }
+          />
+        );
       case "contact":
         return (
           <ContactComponent
@@ -71,7 +81,17 @@ export default function Signup() {
           />
         );
       case "experience":
-        return <ExperienceComponent />;
+        return (
+          <ExperienceComponent
+            selectInitialFields={selectInitialFields}
+            onViewFieldChange={(view: string, field: string, value: string) =>
+              onViewFieldChange(view, field, value)
+            }
+            onStepValidityChange={(isValid: boolean) =>
+              onCurrentStepIsValid(isValid)
+            }
+          />
+        );
       default:
         return (
           <PersonalDetailsComponent

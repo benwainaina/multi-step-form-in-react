@@ -84,11 +84,14 @@ export const useBaseStep = ({
     []
   );
 
+  const getFormFieldValue = useCallback((field: string) => form[field], [form]);
+
   return {
     patchForm,
     updateFormField,
     registerFormFields,
     stepIsValid,
     form,
+    getFormFieldValue,
   };
 };

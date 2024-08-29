@@ -34,8 +34,10 @@ export const useMultistepForm = () => {
   /**
    * sets the active step
    */
-  const setActiveStepIndex = (stepIndex: number) =>
-    setCurrentFormStep(availableSteps[stepIndex]);
+  const setActiveStepIndex = useCallback(
+    (stepIndex: number) => setCurrentFormStep(availableSteps[stepIndex]),
+    [availableSteps]
+  );
 
   /**
    *
