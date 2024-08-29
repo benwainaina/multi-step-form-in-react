@@ -21,6 +21,7 @@ export const InputFieldComponent = ({
 
   return (
     <input
+      className="w-full py-5 pl-2 outline outline-1 outline-slate-200 rounded-2xl font-poppins"
       type={type}
       placeholder={placeholder}
       value={value}

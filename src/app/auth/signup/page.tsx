@@ -96,30 +96,40 @@ export default function Signup() {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", rowGap: 36 }}>
-      <HeaderComponent activeStep={currentFormStep} />
-      <div>
-        {returnStepToRender()}
-        <NavigationComponent
-          availabelSteps={signupSteps}
+    <div className="grid w-full h-full">
+      <div className="flex flex-col w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 2xl:w-6/12 h-4/5 min-w-96 flex flex-col justify-self-center self-center">
+        <HeaderComponent activeStep={currentFormStep} />
+        <div className="bg-white grow p-16 rounded-[24px] shadow-xl flex flex-col justify-center gap-y-24">
+          {returnStepToRender()}
+          <NavigationComponent
+            availabelSteps={signupSteps}
+            activeStep={currentFormStep}
+            onNextStep={(nextStepIndex: number) =>
+              setActiveStepIndex(nextStepIndex)
+            }
+            onSubmit={() => onSubmitForm()}
+            currentStepIsValid={currentStepIsValid}
+          />
+        </div>
+        <FooterComponent
           activeStep={currentFormStep}
-          onNextStep={(nextStepIndex: number) =>
-            setActiveStepIndex(nextStepIndex)
-          }
-          onSubmit={() => onSubmitForm()}
-          currentStepIsValid={currentStepIsValid}
+          availableSteps={signupSteps}
         />
       </div>
-      <FooterComponent
-        activeStep={currentFormStep}
-        availableSteps={signupSteps}
-      />
     </div>
   );
 }
 
 const HeaderComponent = ({ activeStep }: { activeStep?: IMultiStep }) => {
-  return <div>{activeStep?.label}</div>;
+  return (
+    <div className="flex gap-x-4 pb-12 flex items-center font-poppins">
+      <span className="text-gray-300 font-poppins font-black text-2xl">
+        Signup
+      </span>
+      <span className="min-w-1 bg-slate-100 h-full"></span>
+      <span className="font-black">{activeStep?.label}</span>
+    </div>
+  );
 };
 
 const NavigationComponent = ({
@@ -165,16 +175,28 @@ const NavigationComponent = ({
   };
 
   return (
-    <div style={{ display: "flex", columnGap: 24 }}>
+    <div className="flex justify-between font-poppins">
       <button
         disabled={currentStepIndex === 0}
         onClick={() => onNavigateClick("previous")}
+        className={
+          "px-12 py-4 rounded-lg capitalize font-bold bg-blue-500 text-white " +
+          (currentStepIndex === 0
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:bg-blue-600   cursor-pointer")
+        }
       >
         previous
       </button>
       <button
         disabled={!currentStepIsValid}
         onClick={() => onNavigateClick("next")}
+        className={
+          "px-12 py-4 rounded-lg capitalize font-bold bg-blue-500 text-white " +
+          (!currentStepIsValid
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:bg-blue-600   cursor-pointer")
+        }
       >
         {currentStepIndex === availabelSteps.length - 1 ? "submit" : "next"}
       </button>
@@ -190,19 +212,18 @@ const FooterComponent = ({
   availableSteps: Array<IMultiStep>;
 }) => {
   return (
-    <div style={{ display: "flex", columnGap: 24, alignItems: "center" }}>
-      {availableSteps.map((step) => (
-        <div
-          style={{
-            width: step.key === activeStep?.key ? 20 : 10,
-            height: step.key === activeStep?.key ? 20 : 10,
-            outline: "1px solid",
-            borderRadius: 20,
-            backgroundColor: step.key === activeStep?.key ? "black" : "",
-          }}
-          key={step.key}
-        ></div>
-      ))}
+    <div className="py-12 flex justify-center gap-x-8 items-center">
+      {availableSteps.map((step) => {
+        const isActive = step.key === activeStep?.key;
+        return (
+          <div
+            key={step.key}
+            className={`w-[${isActive ? 24 : 10}px] h-[${
+              isActive ? 24 : 10
+            }px] rounded-full ${isActive ? "bg-black" : "outline outline-1"}`}
+          ></div>
+        );
+      })}
     </div>
   );
 };

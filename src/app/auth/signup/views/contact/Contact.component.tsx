@@ -50,45 +50,43 @@ export const ContactComponent = ({
   }, [stepIsValid, onStepValidityChange]);
 
   return (
-    <div>
-      <form>
-        <InputFieldComponent
-          type="email"
-          placeholder="Email address"
-          initialValue={form.email}
-          onChange={(value: string) => {
-            updateFormField("email", value);
-            onViewFieldChange(viewName, "email", value);
-          }}
-        />
-        <InputFieldComponent
-          type="text"
-          placeholder="Linked In"
-          initialValue={form.linkedIn}
-          onChange={(value: string) => {
-            updateFormField("linkedIn", value);
-            onViewFieldChange(viewName, "linkedIn", value);
-          }}
-        />
-        <InputFieldComponent
-          type="text"
-          placeholder="Twitter"
-          initialValue={form.twitter}
-          onChange={(value: string) => {
-            updateFormField("twitter", value);
-            onViewFieldChange(viewName, "twitter", value);
-          }}
-        />
-        <InputFieldComponent
-          type="text"
-          placeholder="YoutTube"
-          initialValue={form.youtube}
-          onChange={(value: string) => {
-            updateFormField("youtube", value);
-            onViewFieldChange(viewName, "youtube", value);
-          }}
-        />
-      </form>
-    </div>
+    <form className="flex flex-col gap-y-12">
+      <InputFieldComponent
+        type="email"
+        placeholder="Email address"
+        initialValue={form.email}
+        onChange={(value: string) => {
+          updateFormField("email", value);
+          onViewFieldChange(viewName, "email", value);
+        }}
+      />
+      <InputFieldComponent
+        type="text"
+        placeholder="Linked In"
+        initialValue={form.linkedIn}
+        onChange={(value: string) => {
+          updateFormField("linkedIn", value);
+          onViewFieldChange(viewName, "linkedIn", value);
+        }}
+      />
+      <InputFieldComponent
+        type="text"
+        placeholder="Twitter"
+        initialValue={form.twitter}
+        onChange={(value: string) => {
+          updateFormField("twitter", value);
+          onViewFieldChange(viewName, "twitter", value);
+        }}
+      />
+      <InputFieldComponent
+        type="text"
+        placeholder="YoutTube"
+        initialValue={form.youtube}
+        onChange={(value: string) => {
+          updateFormField("youtube", value);
+          onViewFieldChange(viewName, "youtube", value);
+        }}
+      />
+    </form>
   );
 };

@@ -48,27 +48,25 @@ export const PersonalDetailsComponent = ({
   }, [stepIsValid, onStepValidityChange]);
 
   return (
-    <div>
-      <form>
-        <InputFieldComponent
-          type="text"
-          placeholder="Full name"
-          initialValue={form.firstname}
-          onChange={(value: string) => {
-            updateFormField("firstname", value);
-            onViewFieldChange(viewName, "firstname", value);
-          }}
-        />
-        <InputFieldComponent
-          type="text"
-          placeholder="Last name"
-          initialValue={form.lastname}
-          onChange={(value: string) => {
-            updateFormField("lastname", value);
-            onViewFieldChange(viewName, "lastname", value);
-          }}
-        />
-      </form>
-    </div>
+    <form className="flex flex-col gap-y-12">
+      <InputFieldComponent
+        type="text"
+        placeholder="Full name"
+        initialValue={form.firstname}
+        onChange={(value: string) => {
+          updateFormField("firstname", value);
+          onViewFieldChange(viewName, "firstname", value);
+        }}
+      />
+      <InputFieldComponent
+        type="text"
+        placeholder="Last name"
+        initialValue={form.lastname}
+        onChange={(value: string) => {
+          updateFormField("lastname", value);
+          onViewFieldChange(viewName, "lastname", value);
+        }}
+      />
+    </form>
   );
 };

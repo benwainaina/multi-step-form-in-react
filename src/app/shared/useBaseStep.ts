@@ -74,18 +74,11 @@ export const useBaseStep = () => {
     []
   );
 
-  const onViewFieldChange = (
-    viewName: string,
-    fieldName: string,
-    value: string
-  ) => ({ viewName, fieldName, value });
-
   return {
     patchForm,
     updateFormField,
     registerFormFields,
     stepIsValid,
-    onViewFieldChange,
     form,
   };
 };
