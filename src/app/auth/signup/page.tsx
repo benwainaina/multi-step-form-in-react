@@ -7,6 +7,7 @@ import { AgreeTNCComponent } from "./views/agree-tnc/AgreeTNC.component";
 import { useMultistepForm } from "@/app/shared/useMultistepForm";
 import { useEffect, useState } from "react";
 import { IMultiStep, TNavigateDirection } from "@/app/shared/interfaces";
+import { clsx } from "clsx";
 
 const signupSteps: Array<IMultiStep> = [
   { key: "personal", label: "Personal" },
@@ -39,7 +40,7 @@ export default function Signup() {
      * register all the available steps
      */
     registerAvailableSteps(signupSteps);
-  }, []);
+  }, [registerAvailableSteps]);
 
   useEffect(() => {
     /**
@@ -47,7 +48,7 @@ export default function Signup() {
      * registered
      */
     setActiveStepIndex(0);
-  }, [availableSteps]);
+  }, [availableSteps, setActiveStepIndex]);
 
   /**
    *
@@ -96,27 +97,29 @@ export default function Signup() {
   };
 
   return (
-    <div className="grid w-full h-full">
-      <div className="flex flex-col w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 2xl:w-6/12 h-4/5 min-w-96 flex flex-col justify-self-center self-center">
-        <HeaderComponent activeStep={currentFormStep} />
-        <div className="bg-white grow p-16 rounded-[24px] shadow-xl flex flex-col justify-center gap-y-24">
-          {returnStepToRender()}
-          <NavigationComponent
-            availabelSteps={signupSteps}
+    currentFormStep && (
+      <div className="grid w-full h-full">
+        <div className="flex flex-col w-11/12 md:w-10/12 lg:w-9/12 xl:w-8/12 2xl:w-6/12 h-4/5 min-w-96 flex flex-col justify-self-center self-center">
+          <HeaderComponent activeStep={currentFormStep} />
+          <div className="bg-white grow p-16 rounded-[24px] shadow-xl flex flex-col justify-center gap-y-24">
+            {returnStepToRender()}
+            <NavigationComponent
+              availabelSteps={signupSteps}
+              activeStep={currentFormStep}
+              onNextStep={(nextStepIndex: number) =>
+                setActiveStepIndex(nextStepIndex)
+              }
+              onSubmit={() => onSubmitForm()}
+              currentStepIsValid={currentStepIsValid}
+            />
+          </div>
+          <FooterComponent
             activeStep={currentFormStep}
-            onNextStep={(nextStepIndex: number) =>
-              setActiveStepIndex(nextStepIndex)
-            }
-            onSubmit={() => onSubmitForm()}
-            currentStepIsValid={currentStepIsValid}
+            availableSteps={signupSteps}
           />
         </div>
-        <FooterComponent
-          activeStep={currentFormStep}
-          availableSteps={signupSteps}
-        />
       </div>
-    </div>
+    )
   );
 }
 
@@ -179,24 +182,24 @@ const NavigationComponent = ({
       <button
         disabled={currentStepIndex === 0}
         onClick={() => onNavigateClick("previous")}
-        className={
-          "px-12 py-4 rounded-lg capitalize font-bold bg-blue-500 text-white " +
-          (currentStepIndex === 0
+        className={clsx(
+          "px-12 py-4 rounded-lg capitalize font-bold bg-blue-500 text-white",
+          currentStepIndex === 0
             ? "opacity-50 cursor-not-allowed"
-            : "hover:bg-blue-600   cursor-pointer")
-        }
+            : "hover:bg-blue-600   cursor-pointer"
+        )}
       >
         previous
       </button>
       <button
         disabled={!currentStepIsValid}
         onClick={() => onNavigateClick("next")}
-        className={
+        className={clsx(
           "px-12 py-4 rounded-lg capitalize font-bold bg-blue-500 text-white " +
-          (!currentStepIsValid
-            ? "opacity-50 cursor-not-allowed"
-            : "hover:bg-blue-600   cursor-pointer")
-        }
+            (!currentStepIsValid
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-blue-600   cursor-pointer")
+        )}
       >
         {currentStepIndex === availabelSteps.length - 1 ? "submit" : "next"}
       </button>
@@ -218,9 +221,12 @@ const FooterComponent = ({
         return (
           <div
             key={step.key}
-            className={`w-[${isActive ? 24 : 10}px] h-[${
-              isActive ? 24 : 10
-            }px] rounded-full ${isActive ? "bg-black" : "outline outline-1"}`}
+            className={clsx(
+              "rounded-full",
+              isActive
+                ? "w-[24px] h-[24px] bg-black"
+                : "w-[10px] h-[10px] outline outline-1"
+            )}
           ></div>
         );
       })}
