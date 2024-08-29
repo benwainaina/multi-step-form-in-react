@@ -38,7 +38,7 @@ export const ContactComponent = ({
       { email: "" }
     );
     patchForm(selectInitialFields(viewName));
-  }, []);
+  }, [registerFormFields, patchForm, selectInitialFields]);
 
   useEffect(() => {
     /**
@@ -47,7 +47,7 @@ export const ContactComponent = ({
     if (stepIsValid !== undefined) {
       onStepValidityChange(stepIsValid);
     }
-  }, [stepIsValid]);
+  }, [stepIsValid, onStepValidityChange]);
 
   return (
     <div>

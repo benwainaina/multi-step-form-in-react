@@ -36,7 +36,7 @@ export const PersonalDetailsComponent = ({
       { firstname: "", lastname: "" }
     );
     patchForm(selectInitialFields(viewName));
-  }, []);
+  }, [registerFormFields, patchForm, selectInitialFields]);
 
   useEffect(() => {
     /**
@@ -45,7 +45,7 @@ export const PersonalDetailsComponent = ({
     if (stepIsValid !== undefined) {
       onStepValidityChange(stepIsValid);
     }
-  }, [stepIsValid]);
+  }, [stepIsValid, onStepValidityChange]);
 
   return (
     <div>

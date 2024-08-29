@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { IDynamicFields, IMultiStep } from "./interfaces";
 
 export const useMultistepForm = () => {
@@ -58,9 +58,13 @@ export const useMultistepForm = () => {
    *
    * @param view
    *
-   * pick any intial
+   * pick initial field values for the provided view, for example when the
+   * user returns to this view
    */
-  const selectInitialFields = (view: string) => formViews[view];
+  const selectInitialFields = useCallback(
+    (view: string) => formViews[view],
+    [formViews]
+  );
 
   /**
    * when the value of a view changes, we can then update the larger
@@ -75,9 +79,8 @@ export const useMultistepForm = () => {
       },
     });
 
-  const onCurrentStepIsValid = (validity: boolean) => {
+  const onCurrentStepIsValid = (validity: boolean) =>
     setCurrentStepIsValid(validity);
-  };
 
   return {
     getForm,
