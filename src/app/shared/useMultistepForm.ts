@@ -11,9 +11,6 @@ export const useMultistepForm = () => {
   const [currentStepIsValid, setCurrentStepIsValid] = useState<boolean>();
 
   /**
-   * handlers
-   */
-  /**
    * returns the cummulative multistep form as well as the fields
    * which have been updated over time
    */
