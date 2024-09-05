@@ -89,7 +89,7 @@ export default function Signup() {
           <div className="bg-white p-16 rounded-[24px] shadow-xl flex flex-col gap-y-20">
             {returnStepToRender()}
             <NavigationComponent
-              availabelSteps={signupSteps}
+              availableSteps={signupSteps}
               activeStep={currentFormStep}
               onNextStep={(nextStepIndex: number) =>
                 setActiveStepIndex(nextStepIndex)
@@ -121,13 +121,13 @@ const HeaderComponent = ({ activeStep }: { activeStep?: IMultiStep }) => {
 };
 
 const NavigationComponent = ({
-  availabelSteps,
+  availableSteps,
   activeStep,
   onNextStep,
   onSubmit,
   currentStepIsValid,
 }: {
-  availabelSteps: Array<IMultiStep>;
+  availableSteps: Array<IMultiStep>;
   activeStep?: IMultiStep;
   onNextStep: Function;
   onSubmit: Function;
@@ -143,9 +143,9 @@ const NavigationComponent = ({
    */
   useEffect(() => {
     setCurrentStepIndex(
-      availabelSteps.findIndex((step) => step.key === activeStep?.key)
+      availableSteps.findIndex((step) => step.key === activeStep?.key)
     );
-  }, [activeStep, availabelSteps]);
+  }, [activeStep, availableSteps]);
 
   /**
    * handlers
@@ -154,7 +154,7 @@ const NavigationComponent = ({
     if (direction === "previous") {
       onNextStep(currentStepIndex - 1);
     } else {
-      if (currentStepIndex !== availabelSteps.length - 1) {
+      if (currentStepIndex !== availableSteps.length - 1) {
         onNextStep(currentStepIndex + 1);
       } else {
         onSubmit();
@@ -186,7 +186,7 @@ const NavigationComponent = ({
               : "hover:bg-blue-600   cursor-pointer")
         )}
       >
-        {currentStepIndex === availabelSteps.length - 1 ? "submit" : "next"}
+        {currentStepIndex === availableSteps.length - 1 ? "submit" : "next"}
       </button>
     </div>
   );
