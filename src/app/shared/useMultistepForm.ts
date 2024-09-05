@@ -11,18 +11,6 @@ export const useMultistepForm = () => {
   const [currentStepIsValid, setCurrentStepIsValid] = useState<boolean>();
 
   /**
-   * returns the cummulative multistep form as well as the fields
-   * which have been updated over time
-   */
-  const getForm = () => {
-    let reducedForm: IDynamicFields = {};
-    for (const view in formViews) {
-      reducedForm = { ...reducedForm, ...formViews[view] };
-    }
-    return reducedForm;
-  };
-
-  /**
    * registers the available steps for the form
    */
   const registerAvailableSteps = (steps: Array<IMultiStep>) =>
@@ -69,6 +57,18 @@ export const useMultistepForm = () => {
   const onCurrentStepIsValid = useCallback((validity: boolean) => {
     setCurrentStepIsValid(validity);
   }, []);
+
+  /**
+   * returns the cummulative multistep form as well as the fields
+   * which have been updated over time
+   */
+  const getForm = () => {
+    let reducedForm: IDynamicFields = {};
+    for (const view in formViews) {
+      reducedForm = { ...reducedForm, ...formViews[view] };
+    }
+    return reducedForm;
+  };
 
   return {
     getForm,

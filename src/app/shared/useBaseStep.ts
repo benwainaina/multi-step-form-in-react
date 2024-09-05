@@ -40,6 +40,27 @@ export const useBaseStep = ({
   /**
    * handlers
    */
+
+  /**
+   *
+   * @param fields
+   * @param requiredFields
+   *
+   * registers the form's fields as well as the required fields
+   */
+  const registerFormFields = useCallback(
+    (fields: IDynamicFields, requiredFields: IDynamicFields) => {
+      setForm(fields);
+      setRequiredFields(requiredFields);
+      setStepIsValid(false);
+    },
+    []
+  );
+
+  /**
+   * patch a form with any initial values already present in the
+   * multistep object
+   */
   const patchForm = useCallback((existingValues: IDynamicFields) => {
     if (existingValues) {
       setForm(existingValues);
@@ -64,22 +85,6 @@ export const useBaseStep = ({
       setFormIsDirty(true);
     },
     [form]
-  );
-
-  /**
-   *
-   * @param fields
-   * @param requiredFields
-   *
-   * registers the form's fields as well as the required fields
-   */
-  const registerFormFields = useCallback(
-    (fields: IDynamicFields, requiredFields: IDynamicFields) => {
-      setForm(fields);
-      setRequiredFields(requiredFields);
-      setStepIsValid(false);
-    },
-    []
   );
 
   const getFormFieldValue = useCallback((field: string) => form[field], [form]);
