@@ -11,8 +11,8 @@ export const useBaseStep = ({
   formFields: IDynamicFields;
   requiredFormFields: IDynamicFields;
   defaults?: IDynamicFields;
-  onViewFieldChange: Function;
-  viewName: string;
+  onViewFieldChange?: Function;
+  viewName?: string;
 }) => {
   /**
    * states
@@ -42,7 +42,7 @@ export const useBaseStep = ({
   }, [form, requiredFields, formIsDirty]);
 
   useEffect(() => {
-    if (defaults) {
+    if (defaults && onViewFieldChange) {
       for (const field in defaults) {
         onViewFieldChange(viewName, field, defaults[field]);
       }
