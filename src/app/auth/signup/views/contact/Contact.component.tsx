@@ -19,11 +19,15 @@ export const ContactComponent = ({
   const { patchForm, updateFormField, stepIsValid, form } = useBaseStep({
     formFields: {
       email: "",
+    },
+    requiredFormFields: { email: "" },
+    defaults: {
       linkedIn: "https://www.linkedin.com/in/benwainaina/",
       twitter: "https://x.com/the__b_a_e",
       youtube: "https://www.youtube.com/@the__b_a_e",
     },
-    requiredFormFields: { email: "" },
+    onViewFieldChange,
+    viewName,
   });
 
   /**

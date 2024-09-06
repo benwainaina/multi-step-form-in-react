@@ -22,6 +22,8 @@ export const PersonalDetailsComponent = ({
       lastname: "",
     },
     requiredFormFields: { firstname: "", lastname: "" },
+    onViewFieldChange,
+    viewName,
   });
 
   /**

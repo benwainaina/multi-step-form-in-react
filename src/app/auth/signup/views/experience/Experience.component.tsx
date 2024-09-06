@@ -31,6 +31,8 @@ export const ExperienceComponent = ({
       react: "",
       reactnative: "",
     },
+    onViewFieldChange,
+    viewName,
   });
 
   /**

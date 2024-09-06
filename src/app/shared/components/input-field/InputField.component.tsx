@@ -11,10 +11,10 @@ export const InputFieldComponent = ({
   initialValue: any;
   onChange: Function;
 }) => {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState("");
 
   useEffect(() => {
-    if (initialValue !== undefined) {
+    if (initialValue) {
       setValue(initialValue);
     }
   }, [initialValue]);

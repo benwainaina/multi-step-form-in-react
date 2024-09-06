@@ -4,9 +4,15 @@ import { IDynamicFields } from "./interfaces";
 export const useBaseStep = ({
   formFields,
   requiredFormFields,
+  defaults,
+  onViewFieldChange,
+  viewName,
 }: {
   formFields: IDynamicFields;
   requiredFormFields: IDynamicFields;
+  defaults?: IDynamicFields;
+  onViewFieldChange: Function;
+  viewName: string;
 }) => {
   /**
    * states
@@ -28,14 +34,20 @@ export const useBaseStep = ({
           if (!form[field]) {
             _stepIsValid = false;
             break;
-          } else {
-            _stepIsValid = true;
           }
         }
       }
       setStepIsValid(_stepIsValid);
     }
   }, [form, requiredFields, formIsDirty]);
+
+  useEffect(() => {
+    if (defaults) {
+      for (const field in defaults) {
+        onViewFieldChange(viewName, field, defaults[field]);
+      }
+    }
+  }, [defaults, onViewFieldChange, viewName]);
 
   /**
    * handlers
