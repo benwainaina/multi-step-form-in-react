@@ -22,8 +22,6 @@ export const AgreeTNCComponent = ({
         agreetnc: "",
       },
       requiredFormFields: { agreetnc: "" },
-      onViewFieldChange,
-      viewName,
     });
 
   /**

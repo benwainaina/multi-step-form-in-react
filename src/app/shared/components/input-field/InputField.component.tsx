@@ -14,7 +14,7 @@ export const InputFieldComponent = ({
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    if (initialValue) {
+    if (initialValue !== undefined) {
       setValue(initialValue);
     }
   }, [initialValue]);
@@ -25,9 +25,9 @@ export const InputFieldComponent = ({
         className="w-full py-4 pl-2 outline outline-1 outline-slate-200 rounded-lg font-poppins"
         type={type}
         value={value}
-        onChange={({ target: { value: newTextValue } }) =>
-          onChange(newTextValue)
-        }
+        onChange={({ target: { value: newTextValue } }) => {
+          onChange(newTextValue);
+        }}
       />
       <span className="font-poppins text-xs text-slate-500 font-bold">
         {placeholder}
