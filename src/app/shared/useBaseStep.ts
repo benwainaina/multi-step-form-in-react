@@ -29,12 +29,10 @@ export const useBaseStep = ({
      */
     if (formIsDirty) {
       let _stepIsValid = true;
-      for (const field in form) {
-        if (field in requiredFields) {
-          if (!form[field]) {
-            _stepIsValid = false;
-            break;
-          }
+      for (const field in requiredFields) {
+        if (!form[field]) {
+          _stepIsValid = false;
+          break;
         }
       }
       setStepIsValid(_stepIsValid);
